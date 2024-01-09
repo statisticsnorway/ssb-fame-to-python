@@ -1,0 +1,16 @@
+{
+  "template": "https://github.com/statisticsnorway/ssb-project-template-stat",
+  "commit": "15546f2c4f8e89eaec7afce10b7b674ff35a33bc",
+  "checkout": "1.1.4",
+  "context": {
+    "cookiecutter": {
+      "full_name": "Magnus Helliesen",
+      "email": "mkh@ssb.no",
+      "project_name": "ssb-fame-to-python",
+      "description": "Python function to write Fame data to pandas DataFrame",
+      "license_year": "2024",
+      "_template": "https://github.com/statisticsnorway/ssb-project-template-stat"
+    }
+  },
+  "directory": null
+}
