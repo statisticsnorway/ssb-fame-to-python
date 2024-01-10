@@ -33,7 +33,7 @@ def fame_to_python(
     fame_commands = []
 
     # Add load of flatfile procedure
-    fame_commands += 'load \\"fame_to_python/flatfile\\"',
+    fame_commands += 'load \\"fame_to_python/flatfil\\"',
 
     # Add open databases
     for i, database in enumerate(databases):
