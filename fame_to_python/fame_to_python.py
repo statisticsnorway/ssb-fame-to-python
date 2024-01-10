@@ -4,8 +4,7 @@
 ##################################
 
 
-#import pandas as pd
-from os import system
+import subprocess as sp
 
 def fame_to_python(
     databases,
@@ -18,23 +17,26 @@ def fame_to_python(
         raise RuntimeError('Fame is not found')
 
     # Build list with Fame commands
-    commands = []
+    fame_commands = []
 
     # Add load of flatfile procedure
-    commands += 'load \\"fame_to_python/flatfile\\"',
+    fame_commands += 'load \\"fame_to_python/flatfile\\"',
 
     # Add open databases
     for i, database in enumerate(databases):
-        commands += f'open <access read> \\"{database}\\" as db{i}',
+        fame_commands += f'open <access read> \\"{database}\\" as db{i}',
 
     # Add set frequency
-    commands += f'frequency {frequency}',
+    fame_commands += f'frequency {frequency}',
 
     # Add set date span
-    commands += f'date {date_span[0]} to {date_span[1]}',
+    fame_commands += f'date {date_span[0]} to {date_span[1]}',
 
     # Add call flatfile
-    commands += f'\$flatfil \\"{search}\\"',
+    fame_commands += f'\$flatfil \\"{search}\\"',
 
-    # Send Send Fame commands to Fame
-    system(f'echo "{";".join(commands)}" | fame')
+    # Send Send Fame commands to Fame and store output as string
+    full_output = sp.getoutput(f'echo "{";".join(fame_commands)}" | fame')
+
+    # Return output, cropped such that only data are included
+    return '\n'.join((full_output.split('\n'))[8:-7])
