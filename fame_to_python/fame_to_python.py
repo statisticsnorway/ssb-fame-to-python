@@ -50,6 +50,9 @@ def fame_to_python(
     # Add load of flatfile procedure
     fame_commands += f'load \\"{package_path}/flatfil\\"',
 
+    # Add decimals option
+    fame_commands += 'decimals 15',    
+
     # Add open databases
     for i, database in enumerate(databases):
         fame_commands += f'open <access read> \\"{database}\\" as db{i}',
