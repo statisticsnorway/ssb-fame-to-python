@@ -13,14 +13,23 @@ def fame_to_python(
     date_span,
     search): #-> pd.DataFrame:
     """
-    TBA
+    Converts data from Fame databases to a string representation.
+
+    Parameters:
+    - databases (list): List of Fame databases to access (with full path).
+    - frequency (str): Frequency of the data ('a', 'q', 'm)'.
+    - date_span (tuple): Start and end dates for the data (in Fame syntax, eg. 2023:1 or 2023, depending on frequency).
+    - search (str): Query string for fetching specific data.
+
+    Returns:
+    str: String representation of Fame data fetched based on the provided parameters.
     """
 
     # Check that Fame is installed on server
-    if system('echo | fame >\\dev\\null') != 0:
+    if system('echo | fame >//dev//null') != 0:
         raise RuntimeError('Fame is not found')
 
-    # Build list with Fame commands
+    # If not error is raised, make empty list with Fame commands
     fame_commands = []
 
     # Add load of flatfile procedure
