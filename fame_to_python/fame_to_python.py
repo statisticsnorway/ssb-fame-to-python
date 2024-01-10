@@ -4,6 +4,7 @@
 ##################################
 
 
+from os import system
 import subprocess as sp
 
 def fame_to_python(
@@ -11,9 +12,12 @@ def fame_to_python(
     frequency,
     date_span,
     search): #-> pd.DataFrame:
+    """
+    TBA
+    """
 
     # Check that Fame is installed on server
-    if system('echo | fame') != 0:
+    if system('echo | fame >\\dev\\null') != 0:
         raise RuntimeError('Fame is not found')
 
     # Build list with Fame commands
