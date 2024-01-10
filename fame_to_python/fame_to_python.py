@@ -6,23 +6,36 @@
 
 from os import system, path
 import subprocess as sp
+from io import StringIO
+import pandas as pd
 
 def fame_to_python(
     databases,
     frequency,
-    date_span,
-    search):
+    date_from,
+    date_to,
+    search_string):
     """
-    Converts data from Fame databases to a string representation.
+    Converts data from Fame databases to a Pandas DataFrame with PeriodIndex.
 
-    Parameters:
-    - databases (list): List of Fame databases to access (with full path).
-    - frequency (str): Frequency of the data ('a', 'q', 'm)'.
-    - date_span (tuple): Start and end dates for the data (in Fame syntax, eg. 2023:1 or 2023, depending on frequency).
-    - search (str): Query string for fetching specific data.
+    Parameters
+    ----------
+    databases : list
+        List of Fame databases to access (with full path).
+    frequency : str
+        Frequency of the data ('a', 'q', 'm').
+    date_from : str
+        Start date for the data in Fame syntax (e.g., '2023:1' for quarterly, '2023' for annual).
+    date_to : str
+        End date for the data in Fame syntax (e.g., '2024:4' for quarterly, '2024' for annual).
+    search_string : str
+        Query string for fetching specific data.
 
-    Returns:
-    str: String representation of Fame data fetched based on the provided parameters.
+    Returns
+    -------
+    pandas.DataFrame
+        DataFrame containing Fame data fetched based on the provided parameters.
+        The index is a PeriodIndex with the specified frequency.
     """
 
     package_path = path.dirname(path.abspath(__file__))
@@ -45,13 +58,17 @@ def fame_to_python(
     fame_commands += f'frequency {frequency}',
 
     # Add set date span
-    fame_commands += f'date {date_span[0]} to {date_span[1]}',
+    fame_commands += f'date {date_from} to {date_to}',
 
     # Add call flatfile
-    fame_commands += f'\$flatfil \\"{search}\\"',
+    fame_commands += f'\$flatfil \\"{search_string}\\"',
 
     # Send Send Fame commands to Fame and store output as string
     full_output = sp.getoutput(f'echo "{";".join(fame_commands)}" | fame')
 
-    # Return output, cropped such that only data are included
-    return '\n'.join((full_output.split('\n'))[8:-7])
+    # Store data as DataFrame
+    output_df = pd.read_csv(StringIO('\n'.join((full_output.split('\n'))[8:-7])), sep=';', index_col=0)
+    output_df.index = pd.PeriodIndex(output_df.index, freq=frequency)
+
+    # Return DataFrame
+    return output_df
