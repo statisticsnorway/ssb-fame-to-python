@@ -4,14 +4,14 @@
 ##################################
 
 
-from os import system
+from os import system, path
 import subprocess as sp
 
 def fame_to_python(
     databases,
     frequency,
     date_span,
-    search): #-> pd.DataFrame:
+    search):
     """
     Converts data from Fame databases to a string representation.
 
@@ -25,6 +25,8 @@ def fame_to_python(
     str: String representation of Fame data fetched based on the provided parameters.
     """
 
+    package_path = path.dirname(path.abspath(__file__))
+
     # Check that Fame is installed on server
     if system('echo | fame >//dev//null') != 0:
         raise RuntimeError('Fame is not found')
@@ -33,7 +35,7 @@ def fame_to_python(
     fame_commands = []
 
     # Add load of flatfile procedure
-    fame_commands += 'load \\"fame_to_python/flatfil\\"',
+    fame_commands += f'load \\"{package_path}/flatfil\\"',
 
     # Add open databases
     for i, database in enumerate(databases):
