@@ -14,7 +14,8 @@ def fame_to_python(
     frequency,
     date_from,
     date_to,
-    search_string):
+    search_string,
+    decimals=10):
     """
     Converts data from Fame databases to a Pandas DataFrame with PeriodIndex.
 
@@ -30,6 +31,8 @@ def fame_to_python(
         End date for the data in Fame syntax (e.g., '2024:4' for quarterly, '2024' for annual).
     search_string : str
         Query string for fetching specific data.
+    decimals : int, optional
+        Number of decimal places in the fetched data (default is 10).
 
     Returns
     -------
@@ -51,7 +54,7 @@ def fame_to_python(
     fame_commands += f'load \\"{package_path}/flatfil\\"',
 
     # Add decimals option
-    fame_commands += 'decimals 15',    
+    fame_commands += f'decimals {decimals}',    
 
     # Add open databases
     for i, database in enumerate(databases):
