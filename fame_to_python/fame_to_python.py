@@ -48,7 +48,7 @@ def _from_fame(
     if system('echo | fame >//dev//null') != 0:
         raise RuntimeError('Fame is not found')
 
-    # If not error is raised, make empty list with Fame commands
+    # If no error is raised, make empty list with Fame commands
     fame_commands = []
 
     # Add load of flatfile procedure
@@ -67,13 +67,13 @@ def _from_fame(
     # Add set date span
     fame_commands += f'date {date_from} to {date_to}',
 
-    # Add call flatfile
+    # Add call flatfile-procedure
     fame_commands += f'\$flatfil \\"{search_string}\\"',
 
-    # Send Send Fame commands to Fame and store output as list of strings
+    # Send commands to Fame and store output as list of strings
     fame_output = (sp.getoutput(f'echo "{";".join(fame_commands)}" | fame')).split('\n')
 
-    # Find beginning and end of output (Fame return "*" before and after)
+    # Find beginning and end of relevant output (Fame return "*" before and after)
     subset = [i for i, x in enumerate(fame_output) if '*' in x]
 
     # Return subset of output as string
