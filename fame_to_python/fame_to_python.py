@@ -31,6 +31,8 @@ def _from_fame(
         End date for the data in Fame syntax (e.g., '2024:4' for quarterly, '2024' for annual).
     search_string : str
         Query string for fetching specific data.
+        The search is not case sensitive, and "^" and "?" are wildcards
+        (for exactly one and any number of characters, respectively)
     decimals : int, optional
         Number of decimal places in the fetched data (default is 10).
 
@@ -100,6 +102,8 @@ def fame_to_pandas(
         End date for the data in Fame syntax (e.g., '2024:4' for quarterly, '2024' for annual).
     search_string : str
         Query string for fetching specific data.
+        The search is not case sensitive, and "^" and "?" are wildcards
+        (for exactly one and any number of characters, respectively)
     decimals : int, optional
         Number of decimal places in the fetched data (default is 10).
 
@@ -108,6 +112,10 @@ def fame_to_pandas(
     pandas.DataFrame
         DataFrame containing Fame data fetched based on the provided parameters.
         The index is a PeriodIndex with the specified frequency.
+
+    Example
+    -------
+    >>> df = fame_to_pandas(['path/to/database1', 'path/to/database2'], 'q', '2023:1', '2024:4', 'your_search_query')
     """
 
     # Get data from Fame
@@ -136,6 +144,41 @@ def fame_to_csv(
     search_string,
     path,
     decimals=10):
+    """
+    Fetches data from Fame databases and writes it to a CSV file.
+
+    Parameters
+    ----------
+    databases : list
+        List of Fame databases to access (with full path).
+    frequency : str
+        Frequency of the data ('a', 'q', 'm').
+    date_from : str
+        Start date for the data in Fame syntax (e.g., '2023:1' for quarterly, '2023' for annual).
+    date_to : str
+        End date for the data in Fame syntax (e.g., '2024:4' for quarterly, '2024' for annual).
+    search_string : str
+        Query string for fetching specific data.
+        The search is not case sensitive, and "^" and "?" are wildcards
+        (for exactly one and any number of characters, respectively)
+    path : str
+        Path to the CSV file to be created.
+    decimals : int, optional
+        Number of decimal places in the fetched data (default is 10).
+
+    Raises
+    ------
+    FileNotFoundError
+        If the specified path or its directory does not exist.
+
+    Notes
+    -----
+    The CSV file is created with the same name as the provided path with a .csv extension.
+
+    Example
+    -------
+    >>> fame_to_csv(['database1', 'database2'], 'q', '2023:1', '2024:4', 'search_query', '/path/to/output')
+    """
 
     # Get data from Fame
     fame_data = _from_fame(
