@@ -37,9 +37,7 @@ class fame_to():
         search_string : str
             Query string for fetching specific data.
             The search is not case sensitive, and "^" and "?" are wildcards
-            (for exactly one and any number of characters, respectively)
-        decimals : int, optional
-            Number of decimal places in the fetched data (default is 10).
+            (for exactly one and any number of characters, respectively).
 
         Returns
         -------
@@ -108,9 +106,7 @@ class fame_to():
         search_string : str
             Query string for fetching specific data.
             The search is not case sensitive, and "^" and "?" are wildcards
-            (for exactly one and any number of characters, respectively)
-        decimals : int, optional
-            Number of decimal places in the fetched data (default is 10).
+            (for exactly one and any number of characters, respectively).
 
         Returns
         -------
@@ -120,7 +116,8 @@ class fame_to():
 
         Example
         -------
-        >>> df = fame_to_pandas(['path/to/database1', 'path/to/database2'], 'q', '2023:1', '2024:4', 'your_search_query')
+        >>> fame_to.decimals = 5 (this is optional, default is 10)
+        >>> df = fame_to.pandas(['path/to/database1', 'path/to/database2'], 'q', '2023:1', '2024:4', 'your_search_query')
         """
 
         # Get data from Fame
@@ -164,11 +161,9 @@ class fame_to():
         search_string : str
             Query string for fetching specific data.
             The search is not case sensitive, and "^" and "?" are wildcards
-            (for exactly one and any number of characters, respectively)
+            (for exactly one and any number of characters, respectively).
         path : str
             Path to the CSV file to be created.
-        decimals : int, optional
-            Number of decimal places in the fetched data (default is 10).
 
         Raises
         ------
@@ -181,7 +176,8 @@ class fame_to():
 
         Example
         -------
-        >>> fame_to_csv(['database1', 'database2'], 'q', '2023:1', '2024:4', 'search_query', '/path/to/output')
+        >>> fame_to.decimals = 5 (this is optional, default is 10)
+        >>> fame_to.csv(['database1', 'database2'], 'q', '2023:1', '2024:4', 'search_query', '/path/to/output')
         """
 
         # Get data from Fame
