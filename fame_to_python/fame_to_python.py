@@ -51,6 +51,8 @@ class fame_to():
         if system('echo | fame >//dev//null') != 0:
             raise RuntimeError('Fame is not found')
 
+        print('Fetching data, please wait')
+
         # If no error is raised, make empty list with Fame commands
         fame_commands = []
 
