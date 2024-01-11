@@ -5,7 +5,7 @@ description = "Python function to write Fame data to pandas DataFrame"
 authors = ["Magnus Helliesen <mkh@ssb.no>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "fame_to_python"}]
+packages = [{include = "fame_to_python", from = "fame_to_python"}]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
