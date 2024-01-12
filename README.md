@@ -9,7 +9,7 @@ Magnus Helliesen <mkh@ssb.no>
 
 ## Features
 
-Package imported using
+The package is imported using
 
 ```python
 from fython import fame_to_pandas, fame_to_csv
