@@ -199,5 +199,6 @@ def fame_to_csv(
 
     # Write string to file
     with open(path_with_extension, 'w') as file_handle:
+        print(f'Writing to {path_with_extension}')
         file_handle.write(fame_data)
         print('Done')
