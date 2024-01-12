@@ -32,7 +32,7 @@ Both functions have an optional ```decimals``` option (default is 10).
 
 ## Requirements
 - python-versions = ">=3.6,<4.0"
-- pandas = ">=1.4.2"
+- pandas = ">=1.1.5"
 
 ## Installation
 ```
