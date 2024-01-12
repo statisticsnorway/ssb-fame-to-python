@@ -134,6 +134,8 @@ def fame_to_pandas(
     output_df = pd.read_csv(StringIO(fame_data), sep=';', index_col=0)
     output_df.index = pd.PeriodIndex(output_df.index, freq=frequency)
 
+    print('Done')
+
     # Return DataFrame
     return output_df
 
@@ -197,7 +199,5 @@ def fame_to_csv(
 
     # Write string to file
     with open(path_with_extension, 'w') as file_handle:
-        try:
-            file_handle.write(fame_data)
-        except FileNotFoundError:
-            raise FileNotFoundError(f'path {path_with_extension} does not exist')
+        file_handle.write(fame_data)
+        print('Done')
