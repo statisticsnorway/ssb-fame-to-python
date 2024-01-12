@@ -1,6 +1,6 @@
 # ssb-fame-to-python (fython)
 
-Python functions to write from Fame-databases to a Pandas DataFrame or csv-file.
+Python functions to write data from Fame-databases to a Pandas DataFrame or csv-file.
 
 Opprettet av:
 Magnus Kvåle Helliesen <mkh@ssb.no>
