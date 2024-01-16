@@ -4,7 +4,7 @@
 ##################################
 
 
-from os import system, path
+from os import system
 import subprocess as sp
 from io import StringIO
 from pathlib import Path
@@ -44,7 +44,8 @@ def _from_fame(
         String representation of Fame data fetched based on the provided parameters.
     """
 
-    package_path = path.dirname(path.abspath(__file__))
+    # Store path to this file
+    package_path = Path(__file__).resolve().parent
 
     # Check that Fame is installed on server
     if system('echo | fame >//dev//null') != 0:
@@ -56,7 +57,7 @@ def _from_fame(
     fame_commands = []
 
     # Add load of flatfile procedure
-    fame_commands += f'load \\"{package_path}/flatfil\\"',
+    fame_commands += f'load \\"{package_path / "flatfil"}\\"',
 
     # Add decimals option
     fame_commands += f'decimals {decimals}',    
