@@ -89,7 +89,8 @@ def fame_to_pandas(
     date_from,
     date_to,
     search_string,
-    decimals=10):
+    decimals=10,
+    dtype=np.float128):
     """
     Converts data from Fame databases to a Pandas DataFrame with PeriodIndex.
 
@@ -134,7 +135,7 @@ def fame_to_pandas(
     # Store data as DataFrame
     output_df = pd.read_csv(StringIO(fame_data), sep=';', index_col=0)
     output_df.index = pd.PeriodIndex(output_df.index, freq=frequency)
-    output_df = output_df.astype(np.float128)
+    output_df = output_df.astype(dtype)
 
     print('Done')
 
