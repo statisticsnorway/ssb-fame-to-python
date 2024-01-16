@@ -7,6 +7,7 @@
 from os import system, path
 import subprocess as sp
 from io import StringIO
+from pathlib import Path
 import pandas as pd
 import numpy as np
 
@@ -197,11 +198,10 @@ def fame_to_csv(
         decimals
     )
 
-    # Make sure extension is .csv
-    path_with_extension = f'{path.split(".")[0]}.csv'
+    # Make sure extension is .csv and turn into Path object
+    path_with_extension = Path(f'{path.split(".")[0]}.csv')
 
-    # Write string to file
-    with open(path_with_extension, 'w') as file_handle:
-        print(f'Writing to {path_with_extension}')
-        file_handle.write(fame_data)
-        print('Done')
+    # Write to csv
+    path_with_extension.write_text(fame_data)
+
+    print('Done')
