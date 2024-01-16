@@ -8,6 +8,7 @@ from os import system, path
 import subprocess as sp
 from io import StringIO
 import pandas as pd
+import numpy as np
 
 def _from_fame(
     databases,
@@ -133,6 +134,7 @@ def fame_to_pandas(
     # Store data as DataFrame
     output_df = pd.read_csv(StringIO(fame_data), sep=';', index_col=0)
     output_df.index = pd.PeriodIndex(output_df.index, freq=frequency)
+    output_df = output_df.astype(np.float128)
 
     print('Done')
 
