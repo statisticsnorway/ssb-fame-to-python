@@ -28,7 +28,7 @@ fame_to_csv(['path/to/database1', 'path/to/database2', ...], 'q', '2023:1', '202
 ```
 
 The search query should containg text and/or the wildcards "?" and/or "^" (*any number* of characters and *exactly one* character, respectively).
-Both functions have an optional ```decimals``` option (default is 10).
+Both functions have an optional ```decimals``` option (default is 10). ```fame_to_pandas``` has the option ```dtype``` (default is ```np.float128```).
 
 ## Requirements
 - python-versions = ">=3.6,<4.0"
