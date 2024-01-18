@@ -42,5 +42,5 @@ poetry add git+https://github.com/statisticsnorway/ssb-fame-to-python.git
 or
 
 ```
-pip install https://github.com/statisticsnorway/ssb-fame-to-python.git
+pip install git+https://github.com/statisticsnorway/ssb-fame-to-python.git
 ```
