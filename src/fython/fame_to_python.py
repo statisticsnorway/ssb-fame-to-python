@@ -4,22 +4,24 @@
 ##################################
 
 
-from os import system
 import subprocess as sp
 from io import StringIO
+from os import system
 from pathlib import Path
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+
 
 def _from_fame(
-    databases,
-    frequency,
-    date_from,
-    date_to,
-    search_string,
-    decimals=10):
-    """
-    Fetches data from Fame databases and returns it as a string.
+    databases: list[str],
+    frequency: str,
+    date_from: str,
+    date_to: str,
+    search_string: str,
+    decimals: int = 10,
+) -> str:
+    """Fetches data from Fame databases and returns it as a string.
 
     Parameters
     ----------
@@ -38,63 +40,62 @@ def _from_fame(
     decimals : int, optional
         Number of decimal places in the fetched data (default is 10).
 
-    Returns
+    Returns:
     -------
     str
         String representation of Fame data fetched based on the provided parameters.
     """
-
     # Store path to this file
     package_path = Path(__file__).resolve().parent
 
     # Check that Fame is installed on server
-    if system('echo | fame >//dev//null') != 0:
-        raise RuntimeError('Fame is not found')
+    if system("echo | fame >//dev//null") != 0:
+        raise RuntimeError("Fame is not found")
 
-    print('Fetching data, please wait')
+    print("Fetching data, please wait")
 
     # If no error is raised, make empty list with Fame commands
-    fame_commands = []
+    fame_commands: list[str] = []
 
     # Add load of flatfile procedure
-    fame_commands += f'load \\"{package_path / "flatfil"}\\"',
+    fame_commands += (f'load \\"{package_path / "flatfil"}\\"',)
 
     # Add decimals option
-    fame_commands += f'decimals {decimals}',    
+    fame_commands += (f"decimals {decimals}",)
 
     # Add open databases
     for i, database in enumerate(databases):
-        fame_commands += f'open <access read> \\"{database}\\" as db{i}',
+        fame_commands += (f'open <access read> \\"{database}\\" as db{i}',)
 
     # Add set frequency
-    fame_commands += f'frequency {frequency}',
+    fame_commands += (f"frequency {frequency}",)
 
     # Add set date span
-    fame_commands += f'date {date_from} to {date_to}',
+    fame_commands += (f"date {date_from} to {date_to}",)
 
     # Add call flatfile-procedure
-    fame_commands += f'\$flatfil \\"{search_string}\\"',
+    fame_commands += (f'\$flatfil \\"{search_string}\\"',)
 
     # Send commands to Fame and store output as list of strings
-    fame_output = (sp.getoutput(f'echo "{";".join(fame_commands)}" | fame')).split('\n')
+    fame_output = (sp.getoutput(f'echo "{";".join(fame_commands)}" | fame')).split("\n")
 
     # Find beginning and end of relevant output (Fame return "*" before and after)
-    subset = [i for i, x in enumerate(fame_output) if '*' in x]
+    subset = [i for i, x in enumerate(fame_output) if "*" in x]
 
     # Return subset of output as string
-    return '\n'.join((fame_output)[subset[0]+1:subset[1]-4])
+    return "\n".join((fame_output)[subset[0] + 1 : subset[1] - 4])
 
 
 def fame_to_pandas(
-    databases,
-    frequency,
-    date_from,
-    date_to,
-    search_string,
-    decimals=10,
-    dtype=np.float128):
-    """
-    Converts data from Fame databases to a Pandas DataFrame with PeriodIndex.
+    databases: list[str],
+    frequency: str,
+    date_from: str,
+    date_to: str,
+    search_string: str,
+    decimals: int = 10,
+    dtype: type = np.float64,
+) -> pd.DataFrame:
+    """Converts data from Fame databases to a Pandas DataFrame with PeriodIndex.
 
     Parameters
     ----------
@@ -113,48 +114,42 @@ def fame_to_pandas(
     decimals : int, optional
         Number of decimal places in the fetched data (default is 10).
 
-    Returns
+    Returns:
     -------
     pandas.DataFrame
         DataFrame containing Fame data fetched based on the provided parameters.
         The index is a PeriodIndex with the specified frequency.
 
-    Example
+    Example:
     -------
     >>> df = fame_to_pandas(['path/to/database1', 'path/to/database2'], 'q', '2023:1', '2024:4', 'your_search_query')
     """
-
     # Get data from Fame
     fame_data = _from_fame(
-        databases,
-        frequency,
-        date_from,
-        date_to,
-        search_string,
-        decimals
+        databases, frequency, date_from, date_to, search_string, decimals
     )
 
     # Store data as DataFrame
-    output_df = pd.read_csv(StringIO(fame_data), sep=';', index_col=0)
+    output_df = pd.read_csv(StringIO(fame_data), sep=";", index_col=0)
     output_df.index = pd.PeriodIndex(output_df.index, freq=frequency)
     output_df = output_df.astype(dtype)
 
-    print('Done')
+    print("Done")
 
     # Return DataFrame
     return output_df
 
 
 def fame_to_csv(
-    databases,
-    frequency,
-    date_from,
-    date_to,
-    search_string,
-    path,
-    decimals=10):
-    """
-    Fetches data from Fame databases and writes it to a CSV file.
+    databases: list[str],
+    frequency: str,
+    date_from: str,
+    date_to: str,
+    search_string: str,
+    path: str,
+    decimals: int = 10,
+) -> None:
+    """Fetches data from Fame databases and writes it to a CSV file.
 
     Parameters
     ----------
@@ -175,28 +170,22 @@ def fame_to_csv(
     decimals : int, optional
         Number of decimal places in the fetched data (default is 10).
 
-    Raises
+    Raises:
     ------
     FileNotFoundError
         If the specified path or its directory does not exist.
 
-    Notes
+    Notes:
     -----
     The CSV file is created with the same name as the provided path with a .csv extension.
 
-    Example
+    Example:
     -------
     >>> fame_to_csv(['database1', 'database2'], 'q', '2023:1', '2024:4', 'search_query', '/path/to/output')
     """
-
     # Get data from Fame
     fame_data = _from_fame(
-        databases,
-        frequency,
-        date_from,
-        date_to,
-        search_string,
-        decimals
+        databases, frequency, date_from, date_to, search_string, decimals
     )
 
     # Make sure extension is .csv and turn into Path object
@@ -205,4 +194,4 @@ def fame_to_csv(
     # Write to csv
     path_with_extension.write_text(fame_data)
 
-    print('Done')
+    print("Done")
