@@ -49,7 +49,7 @@ def _from_fame(
     package_path = Path(__file__).resolve().parent
 
     # Check that Fame is installed on server
-    if system("echo | fame >//dev//null") != 0:
+    if not _has_fame():
         raise RuntimeError("Fame is not found")
 
     print("Fetching data, please wait")
@@ -76,6 +76,23 @@ def _from_fame(
     # Add call flatfile-procedure
     fame_commands += (f'\$flatfil \\"{search_string}\\"',)
 
+    return _run_fame_commands(fame_commands)
+
+
+def _has_fame() -> bool:
+    """Returns true if Fame is detected, and false otherwise."""
+    return system("echo | fame >//dev//null") == 0
+
+
+def _run_fame_commands(fame_commands: list[str]) -> str:
+    """Execute a list of Fame commands.
+
+    Args:
+        fame_commands: A list of Fame commands to be executed.
+
+    Returns:
+        The output/result of the executed Fame commands as a string.
+    """
     # Send commands to Fame and store output as list of strings
     fame_output = (sp.getoutput(f'echo "{";".join(fame_commands)}" | fame')).split("\n")
 
@@ -83,7 +100,7 @@ def _from_fame(
     subset = [i for i, x in enumerate(fame_output) if "*" in x]
 
     # Return subset of output as string
-    return "\n".join((fame_output)[subset[0] + 1 : subset[1] - 4])
+    return "\n".join(fame_output[subset[0] + 1 : subset[1] - 4])
 
 
 def fame_to_pandas(
@@ -113,6 +130,8 @@ def fame_to_pandas(
         (for exactly one and any number of characters, respectively)
     decimals : int, optional
         Number of decimal places in the fetched data (default is 10).
+    dtype : type, optional
+        Type of TBD.
 
     Returns:
     -------
