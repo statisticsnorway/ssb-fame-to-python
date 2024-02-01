@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ssb-fame-to-python"
-version = "0.0.0"
+version = "1.0.0"
 description = "SSB Fame To Python"
 authors = ["Magnus Kvåle Helliesen <mkh@ssb.no>"]
 license = "MIT"
@@ -111,7 +111,7 @@ force-single-line = true
 max-complexity = 15
 
 [tool.ruff.lint.pydocstyle]
-convention = "google"  # You can also use "numpy".
+convention = "numpy"  # You can also use "numpy".
 
 [tool.ruff.lint.pep8-naming]
 classmethod-decorators = ["classmethod", "validator", "root_validator", "pydantic.validator"]
