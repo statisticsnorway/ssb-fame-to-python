@@ -21,7 +21,7 @@ def _from_fame(
     search_string: str,
     decimals: int = 10,
 ) -> str:
-    """Fetches data from Fame databases and returns it as a string.
+    """Fetch data from Fame databases and return it as a string.
 
     Parameters
     ----------
@@ -80,7 +80,7 @@ def _from_fame(
 
 
 def _has_fame() -> bool:
-    """Returns true if Fame is detected, and false otherwise."""
+    """Return true if Fame is detected, and false otherwise."""
     return system("echo | fame >//dev//null") == 0
 
 
@@ -114,7 +114,7 @@ def fame_to_pandas(
     decimals: int = 10,
     dtype: type = np.float64,
 ) -> pd.DataFrame:
-    """Converts data from Fame databases to a Pandas DataFrame with PeriodIndex.
+    """Convert data from Fame databases to a Pandas DataFrame with PeriodIndex.
 
     Parameters
     ----------
@@ -170,7 +170,7 @@ def fame_to_csv(
     path: str,
     decimals: int = 10,
 ) -> None:
-    """Fetches data from Fame databases and writes it to a CSV file.
+    """Fetch data from Fame databases and write it to a CSV file.
 
     Parameters
     ----------
