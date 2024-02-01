@@ -16,10 +16,10 @@ fython package
 =============================================================================
 
 
-fython.functions module
+fython.fame\_to\_python module
 -----------------------------------------------------------------------------
 
-.. automodule:: fython.functions
+.. automodule:: fython.fame_to_python
    :members:
    :undoc-members:
    :show-inheritance:
