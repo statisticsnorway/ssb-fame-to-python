@@ -53,7 +53,7 @@ procedure $skriv_flatfil
   replace nd null
   replace nc null
   replace na null
-  
+
   if @freq eq "MONTHLY"
    image date "<year>-<pz>"
   else if @freq eq "QUARTERLY"

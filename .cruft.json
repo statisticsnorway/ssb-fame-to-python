@@ -1,15 +1,29 @@
 {
-  "template": "https://github.com/statisticsnorway/ssb-project-template-stat",
-  "commit": "15546f2c4f8e89eaec7afce10b7b674ff35a33bc",
-  "checkout": "1.1.4",
+  "template": "https://github.com/statisticsnorway/ssb-pypitemplate.git",
+  "commit": "e81154758223bbeb62e2117de27029295c13e126",
+  "checkout": "2024.1.26",
   "context": {
     "cookiecutter": {
-      "full_name": "Magnus Helliesen",
-      "email": "mkh@ssb.no",
       "project_name": "ssb-fame-to-python",
-      "description": "Python function to write Fame data to pandas DataFrame",
-      "license_year": "2024",
-      "_template": "https://github.com/statisticsnorway/ssb-project-template-stat"
+      "package_name": "fython",
+      "friendly_name": "SSB Fame To Python",
+      "copyright_owner": "Statistics Norway",
+      "copyright_year": "2024",
+      "author": "Magnus Kvåle Helliesen",
+      "email": "mkh@ssb.no",
+      "github_organization": "statisticsnorway",
+      "version": "0.0.0",
+      "license": "MIT",
+      "development_status": "Development Status :: 4 - Beta",
+      "code_quality_level": "Medium",
+      "_copy_without_render": [
+        "*.rst_t"
+      ],
+      "_jinja2_env_vars": {
+        "lstrip_blocks": true,
+        "trim_blocks": true
+      },
+      "_template": "https://github.com/statisticsnorway/ssb-pypitemplate.git"
     }
   },
   "directory": null
