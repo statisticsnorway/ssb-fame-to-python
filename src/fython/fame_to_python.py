@@ -40,7 +40,7 @@ def _from_fame(
     decimals : int, optional
         Number of decimal places in the fetched data (default is 10).
 
-    Returns:
+    Returns
     -------
     str
         String representation of Fame data fetched based on the provided parameters.
@@ -87,10 +87,12 @@ def _has_fame() -> bool:
 def _run_fame_commands(fame_commands: list[str]) -> str:
     """Execute a list of Fame commands.
 
-    Args:
+    Parameters
+    ----------
         fame_commands: A list of Fame commands to be executed.
 
-    Returns:
+    Returns
+    -------
         The output/result of the executed Fame commands as a string.
     """
     # Send commands to Fame and store output as list of strings
@@ -133,14 +135,14 @@ def fame_to_pandas(
     dtype : type, optional
         Type of TBD.
 
-    Returns:
+    Returns
     -------
     pandas.DataFrame
         DataFrame containing Fame data fetched based on the provided parameters.
         The index is a PeriodIndex with the specified frequency.
 
-    Example:
-    -------
+    Examples
+    --------
     >>> df = fame_to_pandas(['path/to/database1', 'path/to/database2'], 'q', '2023:1', '2024:4', 'your_search_query')
     """
     # Get data from Fame
@@ -189,17 +191,17 @@ def fame_to_csv(
     decimals : int, optional
         Number of decimal places in the fetched data (default is 10).
 
-    Raises:
+    Raises
     ------
     FileNotFoundError
         If the specified path or its directory does not exist.
 
-    Notes:
+    Notes
     -----
     The CSV file is created with the same name as the provided path with a .csv extension.
 
-    Example:
-    -------
+    Examples
+    --------
     >>> fame_to_csv(['database1', 'database2'], 'q', '2023:1', '2024:4', 'search_query', '/path/to/output')
     """
     # Get data from Fame
