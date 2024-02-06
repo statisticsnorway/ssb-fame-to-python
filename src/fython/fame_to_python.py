@@ -8,13 +8,14 @@ import subprocess as sp
 from io import StringIO
 from os import system
 from pathlib import Path
+from typing import List
 
 import numpy as np
 import pandas as pd
 
 
 def _from_fame(
-    databases: list[str],
+    databases: List[str],
     frequency: str,
     date_from: str,
     date_to: str,
@@ -55,7 +56,7 @@ def _from_fame(
     print("Fetching data, please wait")
 
     # If no error is raised, make empty list with Fame commands
-    fame_commands: list[str] = []
+    fame_commands: List[str] = []
 
     # Add load of flatfile procedure
     fame_commands += (f'load \\"{package_path / "flatfil"}\\"',)
@@ -84,7 +85,7 @@ def _has_fame() -> bool:
     return system("echo | fame >//dev//null") == 0
 
 
-def _run_fame_commands(fame_commands: list[str]) -> str:
+def _run_fame_commands(fame_commands: List[str]) -> str:
     """Execute a list of Fame commands.
 
     Parameters
@@ -106,7 +107,7 @@ def _run_fame_commands(fame_commands: list[str]) -> str:
 
 
 def fame_to_pandas(
-    databases: list[str],
+    databases: List[str],
     frequency: str,
     date_from: str,
     date_to: str,
@@ -162,7 +163,7 @@ def fame_to_pandas(
 
 
 def fame_to_csv(
-    databases: list[str],
+    databases: List[str],
     frequency: str,
     date_from: str,
     date_to: str,
