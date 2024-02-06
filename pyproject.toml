@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ssb-fame-to-python"
-version = "1.0.1"
+version = "1.0.2"
 description = "SSB Fame To Python"
 authors = ["Magnus Kvåle Helliesen <mkh@ssb.no>"]
 license = "MIT"
