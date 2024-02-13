@@ -211,7 +211,7 @@ def fame_to_csv(
     )
 
     # Make sure extension is .csv and turn into Path object
-    path_with_extension = Path(f'{path.split(".")[0]}.csv')
+    path_with_extension = Path(f'{path.replace(".csv", "").replace(".CSV", "")}.csv')
 
     # Write to csv
     path_with_extension.write_text(fame_data)
